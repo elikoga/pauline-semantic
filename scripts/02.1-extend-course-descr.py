@@ -42,10 +42,12 @@ result = tqdm(
     total=len(course_strings),
 )
 
+result = list(result)
+
 # fuse result with cid
 new_course_strings = {}
-for cid, course_string in course_strings.items():
-    new_course_strings[cid] = result.__next__()["generated_text"]
+for idx, (cid, course_string) in enumerate(course_strings.items()):
+    new_course_strings[cid] = result[idx]["generated_text"]
 
 # write the data to data/course_strings_extended.json
 with open("data/course_strings_extended.json", "w") as f:
